@@ -22,6 +22,7 @@ bool loadWiFiCredentials(String &ssid, String &password);
 void checkWiFiCredentials(const String &selectedSSID, const String &password,
                           bool &isConnected);
 void saveWiFiCredentials(const String &selectedSSID, const String &password);
+
 // listener
 typedef std::function<void(char *topic, String action)> EventHandler;
 void registerHandlerListener(EventHandler eventHandler);

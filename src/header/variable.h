@@ -19,3 +19,13 @@
 #define SCREEN_SIZE 240
 #define MAX_LOG_LINES 30
 #define SHOW_LOG_ON 1  // 0: both, 1: sceen, 2: serial
+// JOYSTIC
+#define JOYSTICK_X_AXIS_PIN 39  // Analog pin
+#define JOYSTICK_Y_AXIS_PIN 36  // Analog pin
+#define JOYSTICK_SWITCH_PIN 17  // Analog pin
+#define JOYSTICK_BUFFER 10
+#define CONTROLLER_UPDATE_INTERVAL 200
+// POTENSTIOMETER
+#define PT_BUFFER 10
+#define PT_FEEDRATE_PIN 34  // Analog pin
+#define PT_FEEDRATE_MAX 6000

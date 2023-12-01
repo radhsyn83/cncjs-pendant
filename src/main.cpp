@@ -2,6 +2,7 @@
 #include <ArduinoJson.h>
 #include <ESPAsyncWebServer.h>
 #include <header/connection.h>
+#include <header/controller.h>
 #include <header/display.h>
 #include <header/variable.h>
 
@@ -21,6 +22,15 @@ void onReceiveHandler(char* topic, String payload) {
     } else {
         printLog("Unknown command: " + String(command));
     }
+}
+
+void onJoystickAxisMove(AXIS_DIRECTION axis) {
+    Serial.println("Move: " + axisToString(axis));
+}
+
+void onPotentioChange(POTENTIO potentio, float value) {
+    Serial.println("Move: " + potentioToString(potentio) +
+                   ", Value: " + String(value));
 }
 
 void handleRoot(AsyncWebServerRequest* request, int alert = 0) {
@@ -87,6 +97,8 @@ void scanningWiFi() {
 void setup() {
     // init eeprom
     EEPROM.begin(EEPROM_SIZE);
+    // init pinout
+    // pinMode(JOYSTICK_SWITCH_PIN, INPUT_PULLUP);
     // init serial
     Serial.begin(115200);
     while (!Serial && millis() < 5000) {
@@ -94,6 +106,11 @@ void setup() {
     }
     // Setup display
     setupDisplay();
+    // Setup display
+    controllerSetup();
+    // Register controller Handler
+    registerHandlerListener(onReceiveHandler);
+    registerActivePotentio(onPotentioChange);
     // Register mqtt handler on new messages
     registerHandlerListener(onReceiveHandler);
     // Register display handler
@@ -139,4 +156,7 @@ void setup() {
     }
 }
 
-void loop() {}
+void loop() {
+    controllerLoop();
+    delay(50);
+}

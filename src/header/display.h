@@ -6,6 +6,8 @@
 
 #include <functional>
 
+extern String movableAxis;
+
 void setupDisplay();
 void updateGRBLState(StaticJsonDocument<JSON_DOC_SIZE> json);
 void printLog(String logEntry);
